@@ -1,7 +1,7 @@
 import React from "react"
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import Header from '../components/header';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link } from "react-router-dom";
 import Slide_1 from "./Slide_1";
@@ -21,7 +21,7 @@ function Details() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/post/${movieId}`, {
+            const response = await fetch(`https://movie-django-production.up.railway.app/api/post/${movieId}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

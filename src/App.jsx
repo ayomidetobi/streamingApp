@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { Link, useNavigate  } from 'react-router-dom'
-import Header from './components/header'
+import Header from './components/Header'
 import Slide_1 from './components/Slide_1'
 import Slide_2 from './components/Slide_2'
-
 
 import disney from './assets/image/Rectangle52.png'
 import marvel from './assets/image/Rectangle53.png'
@@ -29,7 +28,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/post', {
+      const response = await fetch('https://movie-django-production.up.railway.app/api/post', {
         headers: {
           'Content-Type': 'application/json'
         }
