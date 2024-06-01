@@ -28,7 +28,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://movie-django-production.up.railway.app/api/post', {
+      const response = await fetch('http://localhost:8000/api/videos/', {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -45,7 +45,7 @@ function App() {
   return (
     <>
       {/* Header */}
-      <div className="container-fluid col-xxl-8 py-5 hero">
+      <div className="container-fluid  p-5 hero">
 
         <Header />
 
@@ -53,9 +53,9 @@ function App() {
           <div className="col-10 col-sm-8 col-lg-6"> </div>
 
           <div className="col-lg-6 px-5">
-            <h4>Filmagnet</h4>
+            <h4>NEWTON MOVIES</h4>
 
-            <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">Unlimited <span style={{ color: "#CCFF00" }}>Entertainment</span>, Movies, TV Shows , & More.</h1>
+            <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">Unlimited <span style={{ color: "#00edb5" }}>Entertainment</span>, Movies, TV Shows , & More.</h1>
 
             <ul>
               <li className='li1'>Movie</li>
@@ -65,7 +65,7 @@ function App() {
             </ul>
 
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">
-              <button className='mt-3' type="button"><i className="bi bi-play-fill"></i> PLAY NOW</button>
+              <button className='mt-3' type="button"><i className="bi bi-play-fill"></i> NOW WATCHING</button>
             </div>
           </div>
 
@@ -77,12 +77,12 @@ function App() {
         <h5>Online Streaming</h5>
 
         <div className='tag'>
-          <h2>Upcoming Movies</h2>
+          <h2>Recently Added</h2>
 
           <ul className='cate'>
             <li>Movies</li>
-            <li>TV Shows</li>
-            <li>Anime</li>
+            {/* <li>TV Shows</li>
+            <li>Anime</li> */}
           </ul>
         </div>
 
@@ -90,20 +90,20 @@ function App() {
           <div className="row gx-5">
 
             {data.slice(0, 4).sort((a,b)=> b.date.localeCompare(a.date) || b.time.localeCompare(a.time)).map((item) => (
-              <div className="col-3">
+              <div className="col-3" key={item.id}>
                 <div onClick={()=>navigateToDetails(item.id)} className='details'>
-                  <img src={item.cover} className="card-img-top" alt="..." style={{ height: '390px', width: '295px' }} />
+                  <img src={item.cover_image} className="card-img-top" alt="..." style={{ height: '390px' ,objectFit:'cover'}} />
 
                   <div className='title mt-3'>
-                    <p key={item.id}><b>{item.title}</b></p>
-                    <p style={{ color: '#CCFF00' }}>{item.year}</p>
+                    <p ><b>{item.title}</b></p>
+                    <p style={{ color: '#CCFF00' }}>{item.year_of_release}</p>
                   </div>
                 </div>
 
                 <div className='type'>
                   <i className="bi bi-badge-hd"></i>
 
-                  <p><i className="bi bi-clock"></i> {item.mins} mins</p>
+                  <p><i className="bi bi-clock"></i> {item.minutes} mins</p>
 
                   <p><i className="bi bi-star-fill"></i> 7.0</p>
                 </div>
@@ -112,7 +112,7 @@ function App() {
           </div>
         </div>
 
-        <Slide_1 />
+        {/* <Slide_1 /> */}
 
       </div>
 
@@ -146,12 +146,12 @@ function App() {
         </div>
       </div>
 
-      <Slide_2 />
+      {/* <Slide_2 /> */}
 
       <div className='container'>
         <ul className='pagination justify-content-center'>
           <li><Link>1</Link></li>
-          <li><Link>2</Link></li>
+          {/* <li><Link>2</Link></li>
           <li><Link>3</Link></li>
           <li><Link>4</Link></li>
           <li><Link>5</Link></li>
@@ -159,7 +159,7 @@ function App() {
           <li><Link>7</Link></li>
           <li><Link>8</Link></li>
           <li><Link>...</Link></li>
-          <li><Link>64</Link></li>
+          <li><Link>64</Link></li> */}
         </ul>
       </div>
 
