@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://51.20.10.133:8000/api',
+  baseURL: 'https://videostream-gvi2.onrender.com/api/videos/api',
   headers: {
     'Content-Type': 'application/json'
   }
