@@ -2,30 +2,30 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Slide_2 from "./Slide_2";
+import axiosInstance from "../utils/Axiosinstance";
+import { useQuery, useQueryClient } from 'react-query';
 
 function Details() {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     const { movieId } = useParams();
     const videoRef = React.useRef(null);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const fetchVideoDetail = async (movieId) => {
+        const response = await axiosInstance.get(`/videos/${movieId}`);
+        return response.data;
+      };
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`http://localhost:8000/api/videos/${movieId}`, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const jsonData = await response.json();
-            setData(jsonData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+      const queryClient = useQueryClient();
+
+      // Get the initial data from the cache
+      const initialData = queryClient.getQueryData('videos')?.find(video => video.id === movieId);
+    
+      const { data, error, isLoading } = useQuery(['videoDetail', movieId], () => fetchVideoDetail(movieId), {
+        initialData,
+      });
+    
+      if (isLoading) return <div>Loading...</div>;
+      if (error) return <div>Error: {error.message}</div>;
 
     const handlePlayClick = () => {
         if (videoRef.current) {

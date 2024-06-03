@@ -9,12 +9,12 @@ import disney from './assets/image/Rectangle52.png'
 import marvel from './assets/image/Rectangle53.png'
 import dc from './assets/image/Rectangle54.png'
 import star from './assets/image/Rectangle55.png'
-
+import axiosInstance from './utils/Axiosinstance'
 import Footer from './components/Footer';
-
+import { useQuery } from 'react-query';
 
 function App() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const navigate = useNavigate();
   const [setSelectedMovie] = useState(null);
 
@@ -22,25 +22,14 @@ function App() {
     navigate(`/details/${movieId}`)
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://localhost:8000/api/videos/', {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-      );
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+  const fetchVideos = async () => {
+    const response = await axiosInstance.get('/videos/');
+    return response.data;
   };
 
+  const { data, error, isLoading } = useQuery('videos', fetchVideos);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
@@ -65,7 +54,9 @@ function App() {
             </ul>
 
             <div className="d-grid gap-2 d-md-flex justify-content-md-start">
+              <a href="/details/2">
               <button className='mt-3' type="button"><i className="bi bi-play-fill"></i> NOW WATCHING</button>
+              </a>
             </div>
           </div>
 
@@ -89,7 +80,7 @@ function App() {
         <div className="pt-5 text-light">
           <div className="row gx-5">
 
-            {data.slice(0, 4).sort((a,b)=> b.date.localeCompare(a.date) || b.time.localeCompare(a.time)).map((item) => (
+            {data.map((item) => (
               <div className="col-3" key={item.id}>
                 <div onClick={()=>navigateToDetails(item.id)} className='details'>
                   <img src={item.cover_image} className="card-img-top" alt="..." style={{ height: '390px' ,objectFit:'cover'}} />

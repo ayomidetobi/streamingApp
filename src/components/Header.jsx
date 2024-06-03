@@ -31,7 +31,7 @@ function Header() {
           
           <a href="" className="pe-4 link-body-emphasis"><i className="bi bi-globe-americas"></i> EN </a>
 
-          <button type="button">SIGN IN</button>
+          {/* <button type="button">SIGN IN</button> */}
         </div>
       </header>
     </div>
